@@ -1,0 +1,18 @@
+[tools]
+go = "1.26.3"
+
+[tasks.build]
+description = "Build pack binary"
+quiet = true
+usage = '''
+flag "-p --platform <platform>" help="Target platform" default="darwin" choices "linux" "darwin"
+flag "-a --arch <arch>" help="Target architecture" default="arm64" choices "arm64" "amd64"
+flag "-o --output <output>" help="Target output file" default="dist/simrun-pack"
+'''
+run = '''
+echo "Building ${usage_output} for ${usage_platform}/${usage_arch}"
+
+CGO_ENABLED=0 GOOS="${usage_platform}" GOARCH="${usage_arch}" go build \
+  -ldflags="-w -s -X main.Version=dev" \
+  -o "${usage_output}" .
+'''
