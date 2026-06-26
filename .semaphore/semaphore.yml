@@ -1,0 +1,77 @@
+version: v1.0
+name: simrun-pack CI
+agent:
+  machine:
+    type: s1-prod-ubuntu24-04-amd64-2
+
+auto_cancel:
+  running:
+    when: "branch != 'master'"
+
+execution_time_limit:
+  minutes: 30
+
+queue:
+  - when: "branch != 'master'"
+    processing: parallel
+
+global_job_config:
+  env_vars:
+    # Fixed cache paths so Semaphore cache keys are deterministic.
+    - name: GOMODCACHE
+      value: /home/semaphore/go/pkg/mod
+    - name: GOCACHE
+      value: /home/semaphore/.cache/go-build
+  prologue:
+    commands:
+      - checkout
+      # mise.toml is the single source of truth for tool versions (go, goreleaser);
+      # install it here so CI uses the same pinned versions as local dev.
+      - curl https://mise.run | sh
+      - export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+      - mise install
+      # Warm the Go module + build caches. The bare-prefix fallback lets a changed
+      # go.sum still restore the previous cache instead of compiling from scratch.
+      - cache restore go-mod-$(checksum go.sum),go-mod-
+      - cache restore go-build-$(checksum go.sum),go-build-
+  epilogue:
+    always:
+      commands:
+        - cache store go-mod-$(checksum go.sum) "$GOMODCACHE"
+        - cache store go-build-$(checksum go.sum) "$GOCACHE"
+
+blocks:
+  - name: "Build & Test"
+    # Skip on tag builds: the commit was already validated on master before tagging.
+    run:
+      when: "tag !~ '.*'"
+    dependencies: []
+    task:
+      jobs:
+        - name: "build / vet / test"
+          commands:
+            - go build ./...
+            - go vet ./...
+            - go test ./...
+
+  - name: "Lint"
+    run:
+      when: "tag !~ '.*'"
+    dependencies: []
+    task:
+      jobs:
+        - name: "gofmt"
+          commands:
+            - 'unformatted="$(gofmt -l $(git ls-files ''*.go''))"; test -z "$unformatted" || (echo "gofmt issues in:" && echo "$unformatted" && exit 1)'
+
+promotions:
+  # A push to master that passes CI cuts the next semver tag from conventional commits.
+  - name: "Cut Release Tag"
+    pipeline_file: tag-release.yml
+    auto_promote:
+      when: "result = 'passed' AND branch = 'master'"
+  # A pushed tag (from the step above) builds and publishes the release with goreleaser.
+  - name: "Release"
+    pipeline_file: goreleaser.yml
+    auto_promote:
+      when: "tag =~ '.*'"
