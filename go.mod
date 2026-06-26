@@ -3,7 +3,7 @@ module github.com/confluentinc/simrun-pack
 go 1.26.3
 
 require (
-	github.com/IBM/simrun v0.0.0-20260601185023-5ee2aa888e89
+	github.com/IBM/simrun v0.4.2
 	github.com/aws/aws-sdk-go-v2 v1.41.7
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.97.3
 	github.com/aws/aws-sdk-go-v2/service/ssm v1.68.6

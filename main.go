@@ -17,7 +17,7 @@ import (
 var Version = "dev"
 
 func main() {
-	pack.SetPackInfo("base", Version, "4.0.0")
+	pack.SetPackInfo("simrun-base-pack", Version, "0.4.0")
 	pack.RegisterPackParams(
 		pack.PackParam{
 			Name:        "resource_prefix",
