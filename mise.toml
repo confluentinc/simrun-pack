@@ -1,5 +1,6 @@
 [tools]
 go = "1.26.3"
+goreleaser = "2.16.0"
 
 [tasks.build]
 description = "Build pack binary"
