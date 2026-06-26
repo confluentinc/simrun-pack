@@ -21,7 +21,7 @@ global_job_config:
       # changelog); Semaphore's checkout is shallow. Falls back to a plain tag
       # fetch when the clone is already complete (e.g. local runs).
       - git fetch --tags --unshallow 2>/dev/null || git fetch --tags
-      - curl https://mise.run | sh
+      - curl -fsSL https://mise.run | sh
       - export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
       - mise install
       - cache restore go-mod-$(checksum go.sum),go-mod-

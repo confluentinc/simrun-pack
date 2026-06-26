@@ -27,7 +27,7 @@ global_job_config:
       - checkout
       # mise.toml is the single source of truth for tool versions (go, goreleaser);
       # install it here so CI uses the same pinned versions as local dev.
-      - curl https://mise.run | sh
+      - curl -fsSL https://mise.run | sh
       - export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
       - mise install
       # Warm the Go module + build caches. The bare-prefix fallback lets a changed
