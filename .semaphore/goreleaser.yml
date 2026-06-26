@@ -1,0 +1,44 @@
+version: v1.0
+name: goreleaser-release
+agent:
+  machine:
+    # Largest amd64 tier: goreleaser builds the matrix concurrently across cores.
+    type: s1-prod-ubuntu24-04-amd64-3
+
+execution_time_limit:
+  minutes: 30
+
+global_job_config:
+  env_vars:
+    - name: GOMODCACHE
+      value: /home/semaphore/go/pkg/mod
+    - name: GOCACHE
+      value: /home/semaphore/.cache/go-build
+  prologue:
+    commands:
+      - checkout
+      # goreleaser needs full history + tags (current tag + previous one for the
+      # changelog); Semaphore's checkout is shallow. Falls back to a plain tag
+      # fetch when the clone is already complete (e.g. local runs).
+      - git fetch --tags --unshallow 2>/dev/null || git fetch --tags
+      - curl https://mise.run | sh
+      - export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+      - mise install
+      - cache restore go-mod-$(checksum go.sum),go-mod-
+      - cache restore go-build-$(checksum go.sum),go-build-
+  epilogue:
+    always:
+      commands:
+        - cache store go-mod-$(checksum go.sum) "$GOMODCACHE"
+        - cache store go-build-$(checksum go.sum) "$GOCACHE"
+
+blocks:
+  - name: "Release"
+    dependencies: []
+    task:
+      jobs:
+        - name: "goreleaser release"
+          commands:
+            # gh is pre-authenticated on Confluent Semaphore; reuse its token for goreleaser.
+            - export GITHUB_TOKEN="$(gh auth token)"
+            - mise exec -- goreleaser release --clean
