@@ -10,9 +10,12 @@
 set -euo pipefail
 
 # Latest released tag, read straight from the remote (works on Semaphore's shallow,
-# tagless checkout). --sort ascending + tail = highest version.
+# tagless checkout). --sort ascending + tail = highest version. The `|| true` guards
+# the first release, where grep matches nothing and would otherwise trip pipefail/set -e;
+# a genuine ls-remote failure still propagates and fails the job.
 latest="$(git ls-remote --tags --refs --sort='v:refname' origin \
-  | grep -Eo 'refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$' | sed 's,refs/tags/,,' | tail -n1)"
+  | { grep -Eo 'refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$' || true; } \
+  | sed 's,refs/tags/,,' | tail -n1)"
 latest="${latest:-v0.0.0}"
 
 subject="$(git log -1 --pretty=%s)"
