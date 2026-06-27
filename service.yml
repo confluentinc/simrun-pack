@@ -1,6 +1,6 @@
 name: simrun-pack
 lang: go
-lang_version: 1.26.3
+lang_version: "1.26.4"
 git:
   enable: true
 codeowners:
