@@ -5,8 +5,8 @@ go 1.26.3
 require (
 	github.com/IBM/simrun v0.4.2
 	github.com/aws/aws-sdk-go-v2 v1.42.0
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.97.3
-	github.com/aws/aws-sdk-go-v2/service/ssm v1.68.6
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.104.0
+	github.com/aws/aws-sdk-go-v2/service/ssm v1.69.3
 	github.com/sirupsen/logrus v1.9.4
 	k8s.io/api v0.36.2
 	k8s.io/apimachinery v0.36.2
