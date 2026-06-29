@@ -39,6 +39,6 @@ blocks:
       jobs:
         - name: "goreleaser release"
           commands:
-            # gh is pre-authenticated on Confluent Semaphore; reuse its token for goreleaser.
-            - export GITHUB_TOKEN="$(gh auth token)"
+            # goreleaser needs a contents:write token to publish the release.
+            - export GITHUB_TOKEN="$(get_github_write_token)"
             - mise exec -- goreleaser release --clean
