@@ -1,6 +1,6 @@
 module github.com/confluentinc/simrun-pack
 
-go 1.26.9
+go 1.26.10
 
 require (
 	github.com/IBM/simrun v0.6.3
