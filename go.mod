@@ -4,9 +4,9 @@ go 1.26.10
 
 require (
 	github.com/IBM/simrun v0.6.3
-	github.com/aws/aws-sdk-go-v2 v1.47.3
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.114.4
-	github.com/aws/aws-sdk-go-v2/service/ssm v1.80.0
+	github.com/aws/aws-sdk-go-v2 v1.47.4
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.114.5
+	github.com/aws/aws-sdk-go-v2/service/ssm v1.81.0
 	github.com/sirupsen/logrus v1.10.2
 	k8s.io/api v0.37.1
 	k8s.io/apimachinery v0.37.1
@@ -16,22 +16,22 @@ require (
 require (
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
-	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.23 // indirect
+	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.24 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.32.17 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.19.16 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.18.23 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.5.6 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.8.6 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/v4a v1.5.6 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.13.21 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.11.7 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.6 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.20.6 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.5.7 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.8.7 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/v4a v1.5.7 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.13.22 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.11.8 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.7 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.20.7 // indirect
 	github.com/aws/aws-sdk-go-v2/service/signin v1.0.11 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.30.17 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.35.21 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.42.1 // indirect
-	github.com/aws/smithy-go v1.28.5 // indirect
+	github.com/aws/smithy-go v1.28.6 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/emicklei/go-restful/v3 v3.13.0 // indirect
