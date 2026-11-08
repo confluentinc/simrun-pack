@@ -7,8 +7,9 @@ codeowners:
   enable: true
 renovatebot:
   enable: true
-  automerge:
-    enable: true
 semaphore:
   enable: true
   pipeline_enable: false
+automerge:
+  renovate:
+    enable: true
