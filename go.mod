@@ -5,8 +5,8 @@ go 1.26.11
 require (
 	github.com/IBM/simrun v0.6.3
 	github.com/aws/aws-sdk-go-v2 v1.48.0
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.114.10
-	github.com/aws/aws-sdk-go-v2/service/ssm v1.82.1
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.115.0
+	github.com/aws/aws-sdk-go-v2/service/ssm v1.83.0
 	github.com/sirupsen/logrus v1.10.2
 	k8s.io/api v0.37.2
 	k8s.io/apimachinery v0.37.2
